@@ -1,0 +1,9 @@
+{{- $.Scratch.Set "pages" (where .Site.RegularPages "Type" "in" (slice "posts")) -}}
+{{- range $index, $page := $.Scratch.Get "pages" -}}
+{
+  "title": {{ $page.Title | jsonify }},
+  "content": {{ $page.Plain | jsonify }},
+  "tags": {{ $page.Params.tags | jsonify }},
+  "url": {{ $page.Permalink | jsonify }}
+}{{ if ne $index (sub ($.Scratch.Get "pages" | len) 1) }},{{ end }}
+{{- end -}}

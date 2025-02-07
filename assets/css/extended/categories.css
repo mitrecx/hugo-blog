@@ -1,0 +1,41 @@
+/* 分类标签样式 */
+.post-categories {
+  margin: 1rem 0;
+}
+
+.category-link {
+  display: inline-block;
+  padding: 4px 12px;
+  margin: 0 4px;
+  background: rgba(var(--accent-rgb), 0.1);
+  border-radius: 16px;
+  color: var(--accent);
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+}
+
+.category-link:hover {
+  background: rgba(var(--accent-rgb), 0.2);
+  transform: translateY(-1px);
+}
+
+/* 分类列表页样式 */
+.category-container {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.category-group {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.article-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border-color);
+}

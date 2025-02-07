@@ -1,0 +1,138 @@
+/* ======================
+   并列布局优化方案
+   TOC & Content Layout Fix
+======================= */
+
+/* 正文容器向右腾出空间 */
+.post-content {
+  position: relative;
+  margin-left: 80px;  /* 根据实际大纲宽度调整 */
+  width: 110%;          /* 设置正文占据的宽度 */
+}
+
+/* 左侧大纲定位调整 */
+.toc-sidebar {
+  left: 1rem;
+  top: 120px;
+}
+
+@media screen and (max-width: 1000px) {
+  .post-content {
+    margin-left: 0;    /* 移动端隐藏大纲 */
+    padding: 20px;
+  }
+  .toc-sidebar {
+    display: none;     /* 移动端完全隐藏 */
+  }
+}
+
+/* 正文区域防穿透 */
+.post-main {
+  position: relative;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* ======================
+   左侧大纲美化样式
+   TOC Fixed Sidebar
+======================= */
+
+.toc-sidebar {
+  /* 容器定位 */
+  position: fixed;
+  left: 1.5rem;
+  top: 120px;
+  width: 240px;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  /* 视觉样式 */
+  background: rgba(var(--card-bg-rgb), 0.92);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+
+  /* 滚动条美化 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+/* ========= 大纲本体样式 ========= */
+.toc {
+  font-size: 0.88em;  /* 调小字体 */
+  line-height: 1.7;   /* 增大行距 */
+  margin: 0 !important;
+}
+
+/* 列表层级控制 */
+.toc ul {
+  padding-left: 0.6rem !important;  /* 减少左边距 */
+  margin: 0.4rem 0 !important;
+  list-style: none;
+}
+
+/* 三级嵌套缩进 */
+.toc ul ul { padding-left: 0.8rem !important; }
+.toc ul ul ul { padding-left: 1rem !important; }
+
+/* 链接基础样式 */
+.toc a {
+  color: var(--secondary) !important;
+  text-decoration: none !important; /* 去除下划线 */
+  display: block;
+  padding: 4px 0;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+/* 悬停动效 */
+.toc a:hover {
+  color: var(--accent) !important;
+  transform: translateX(4px);
+}
+
+/* 当前激活项 */
+.toc a.active {
+  color: var(--accent) !important;
+  font-weight: 500;
+  background: linear-gradient(90deg, rgba(var(--accent-rgb),0.1), transparent);
+  border-left: 2px solid var(--accent);
+  padding-left: 12px !important;
+  margin-left: -12px !important;
+}
+
+/* 条目间距控制 */
+.toc li {
+  margin: 0.7rem 0 !important;  /* 增大纵向间距 */
+  position: relative;
+}
+
+/* ====== 滚动条美化 ====== */
+.toc-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.toc-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.toc-sidebar::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* ====== 可选：层级标识线 ====== */
+.toc ul ul::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: rgba(var(--secondary-rgb), 0.15);
+}
+
+
+

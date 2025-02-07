@@ -1,0 +1,9 @@
+.search-box {
+  border-radius: 25px;
+  padding: 12px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.search-results li {
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+}

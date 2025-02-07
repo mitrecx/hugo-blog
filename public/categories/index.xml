@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>所有分类 on Mitre 的博客</title>
+    <link>http://localhost:1313/categories/</link>
+    <description>Recent content in 所有分类 on Mitre 的博客</description>
+    <generator>Hugo -- 0.143.1</generator>
+    <language>zh-cn</language>
+    <copyright>2025 Mitre 网站备案号 沪ICP备2024085168号-1</copyright>
+    <lastBuildDate>Thu, 06 Feb 2025 15:13:26 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo</title>
+      <link>http://localhost:1313/categories/hugo/</link>
+      <pubDate>Thu, 06 Feb 2025 15:13:26 +0800</pubDate>
+      <guid>http://localhost:1313/categories/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>技术文档</title>
+      <link>http://localhost:1313/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Thu, 06 Feb 2025 15:13:26 +0800</pubDate>
+      <guid>http://localhost:1313/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fuse</title>
+      <link>http://localhost:1313/categories/fuse/</link>
+      <pubDate>Thu, 06 Feb 2025 15:13:21 +0800</pubDate>
+      <guid>http://localhost:1313/categories/fuse/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

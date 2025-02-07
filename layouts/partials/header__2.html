@@ -1,0 +1,10 @@
+<header>
+  <nav>
+    <!-- 显示博客名称 -->
+     <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+
+    {{ range site.Menus.main }}
+      <a href="{{ .URL | absLangURL }}">{{ .Name }}</a>
+    {{ end }}
+  </nav>
+</header>

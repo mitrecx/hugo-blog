@@ -1,0 +1,34 @@
+baseURL: https://example.org/
+languageCode: zh-cn
+title: Mitre 的博客
+theme: ["PaperMod"]
+params:
+  category: true
+  enableSearch: true
+  ShowTaxonomies: true     # 在文章页面显示分类
+  ShowTaxonomiesInList: true  # 在文章列表中显示分类
+  ShowToc: true           # 全局启用TOC
+  TocMaxDepth: 4          # 大纲深度（支持H1-H4）
+  extendCSS: ["css/extended/toc.css"]
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search
+
+menu:
+  main:
+    - name: "搜索"
+      url: /search
+      weight: 5
+    - identifier: categories
+      name: "分类"
+      url: /categories/
+      weight: 1
+
+
+taxonomies:
+  category: categories
+  tag: tags
+
+copyright: "&copy; 2025 Mitre [网站备案号 沪ICP备2024085168号-1](http://www.beian.gov.cn/portal/registerSystemInfo)"

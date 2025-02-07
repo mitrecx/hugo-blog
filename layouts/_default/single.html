@@ -1,0 +1,20 @@
+
+{{ define "main" }}
+  <article class="post-content">
+    <!-- 左侧大纲 -->
+    <aside class="toc-sidebar">
+      <div class="toc">
+        {{ .TableOfContents }}
+      </div>
+    </aside>
+    
+    <!-- 正文内容 -->
+    <div class="post-main">
+      <!-- Optimized Hugo template code -->
+      <h1>{{ .Title | safeHTML }}</h1>
+      发布时间: {{ .Date.Format "2006-01-02" }}<br>
+      字数: {{ .WordCount }} 字<br>
+      {{ .Content }}
+    </div>
+  </article>
+{{ end }}

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>T3 | Mitre 的博客</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+  方法 1: 使用内置的 Fuse.js 搜索 (推荐)
+  #
+
+PaperMod 默认集成了基于 Fuse.js 的客户端搜索功能，只需简单配置即可启用：
+
+
+启用搜索配置
+在 config.yml 中添加：
+params:
+  enableSearch: true
+
+
+生成搜索索引
+确保你的内容能被索引。在 config.yml 中配置 Hugo 生成 JSON 索引文件：
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+
+创建搜索页面
+新建 content/search.md 文件，内容如下：
+---
+title: &#34;搜索&#34;
+layout: &#34;search&#34;
+summary: &#34;搜索页面&#34;
+placeholder: &#34;输入关键词...&#34;
+---
+
+
+添加搜索入口
+在菜单中添加链接（修改 config.yml）：
+menu:
+  main:
+    - name: &#34;搜索&#34;
+      url: /search
+      weight: 5
+
+
+
+
+  方法 2: 自定义 Algolia 搜索（适合大型站点）
+  #
+
+
+
+注册 Algolia 账号
+访问 Algolia 并创建索引。">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/post/t3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.a4adefa502f80949f0cf9529be0ea6fb14a9cdc9a8b75f9baa2b3309610024a9.css" integrity="sha256-pK3vpQL4CUnwz5Upvg6m&#43;xSpzcmot1&#43;bqiszCWEAJKk=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/post/t3/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Mitre 的博客 (Alt + H)">Mitre 的博客</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+  <article class="post-content">
+    
+    <aside class="toc-sidebar">
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#方法-1-使用内置的-fusejs-搜索-推荐">方法 1: 使用内置的 Fuse.js 搜索 (推荐)</a></li>
+        <li><a href="#方法-2-自定义-algolia-搜索适合大型站点">方法 2: 自定义 Algolia 搜索（适合大型站点）</a></li>
+        <li><a href="#方法-3-手动实现-lunrjs-搜索">方法 3: 手动实现 Lunr.js 搜索</a></li>
+        <li><a href="#样式调整">样式调整</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </aside>
+    
+    
+    <div class="post-main">
+      
+      <h1>T3</h1>
+      发布时间: 2025-02-06<br>
+      字数: 188 字<br>
+      <h3 id="方法-1-使用内置的-fusejs-搜索-推荐">
+  方法 1: 使用内置的 Fuse.js 搜索 (推荐)
+  <a class="anchor" href="#%e6%96%b9%e6%b3%95-1-%e4%bd%bf%e7%94%a8%e5%86%85%e7%bd%ae%e7%9a%84-fusejs-%e6%90%9c%e7%b4%a2-%e6%8e%a8%e8%8d%90">#</a>
+</h3>
+<p>PaperMod 默认集成了基于 Fuse.js 的客户端搜索功能，只需简单配置即可启用：</p>
+<ol>
+<li>
+<p><strong>启用搜索配置</strong>
+在 <code>config.yml</code> 中添加：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">params</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enableSearch</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>生成搜索索引</strong>
+确保你的内容能被索引。在 <code>config.yml</code> 中配置 Hugo 生成 JSON 索引文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">home</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">HTML</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">RSS</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">JSON</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>创建搜索页面</strong>
+新建 <code>content/search.md</code> 文件，内容如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>title: &#34;搜索&#34;
+</span></span><span style="display:flex;"><span>layout: &#34;search&#34;
+</span></span><span style="display:flex;"><span>summary: &#34;搜索页面&#34;
+</span></span><span style="display:flex;"><span>placeholder: &#34;输入关键词...&#34;
+</span></span><span style="display:flex;"><span>---
+</span></span></code></pre></div></li>
+<li>
+<p><strong>添加搜索入口</strong>
+在菜单中添加链接（修改 <code>config.yml</code>）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">menu</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">main</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;搜索&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">url</span>: <span style="color:#ae81ff">/search</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">weight</span>: <span style="color:#ae81ff">5</span>
+</span></span></code></pre></div></li>
+</ol>
+<hr>
+<h3 id="方法-2-自定义-algolia-搜索适合大型站点">
+  方法 2: 自定义 Algolia 搜索（适合大型站点）
+  <a class="anchor" href="#%e6%96%b9%e6%b3%95-2-%e8%87%aa%e5%ae%9a%e4%b9%89-algolia-%e6%90%9c%e7%b4%a2%e9%80%82%e5%90%88%e5%a4%a7%e5%9e%8b%e7%ab%99%e7%82%b9">#</a>
+</h3>
+<ol>
+<li>
+<p><strong>注册 Algolia 账号</strong>
+访问 <a href="https://www.algolia.com/">Algolia</a> 并创建索引。</p>
+</li>
+<li>
+<p><strong>安装 Hugo-Algolia 工具</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm install -D hugo-algolia
+</span></span></code></pre></div></li>
+<li>
+<p><strong>配置 Algolia</strong>
+在 <code>config.yml</code> 中添加：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">params</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">algolia</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">appId</span>: <span style="color:#e6db74">&#34;你的APP_ID&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">apiKey</span>: <span style="color:#e6db74">&#34;你的SEARCH_API_KEY&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">indexName</span>: <span style="color:#e6db74">&#34;你的索引名称&#34;</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>生成索引并上传</strong>
+创建 <code>package.json</code> 脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;index&#34;</span>: <span style="color:#e6db74">&#34;hugo-algolia -s&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm run index
+</span></span></code></pre></div></li>
+<li>
+<p><strong>添加搜索模板</strong>
+在 <code>layouts/partials/search_algolia.html</code> 创建自定义模板。</p>
+</li>
+</ol>
+<hr>
+<h3 id="方法-3-手动实现-lunrjs-搜索">
+  方法 3: 手动实现 Lunr.js 搜索
+  <a class="anchor" href="#%e6%96%b9%e6%b3%95-3-%e6%89%8b%e5%8a%a8%e5%ae%9e%e7%8e%b0-lunrjs-%e6%90%9c%e7%b4%a2">#</a>
+</h3>
+<ol>
+<li>
+<p><strong>生成索引文件</strong>
+创建 <code>layouts/index.json</code> 定义数据结构。</p>
+</li>
+<li>
+<p><strong>添加 Lunr.js</strong>
+在 <code>assets/js/search.js</code> 中添加：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/index.json&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">res</span> =&gt; <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>()).<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">lunr</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ref</span>(<span style="color:#e6db74">&#39;id&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">field</span>(<span style="color:#e6db74">&#39;title&#39;</span>, { <span style="color:#a6e22e">boost</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span> })
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">field</span>(<span style="color:#e6db74">&#39;content&#39;</span>)
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 添加索引逻辑...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div></li>
+<li>
+<p><strong>创建搜索界面</strong>
+参考方法1中的 <code>search.md</code> 页面。</p>
+</li>
+</ol>
+<hr>
+<h3 id="样式调整">
+  样式调整
+  <a class="anchor" href="#%e6%a0%b7%e5%bc%8f%e8%b0%83%e6%95%b4">#</a>
+</h3>
+<p>在 <code>assets/css/extended/search.css</code> 中添加自定义样式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">search-results</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin-top</span>: <span style="color:#ae81ff">2</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">search-result-item</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border-bottom</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> <span style="color:#ae81ff">#eee</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<p><strong>常见问题排查</strong>：</p>
+<ol>
+<li>确保运行 <code>hugo server</code> 时包含 <code>--buildDrafts</code> 参数（如果需要索引草稿）</li>
+<li>检查浏览器控制台是否有404错误（确认index.json路径正确）</li>
+<li>清除浏览器缓存后再测试</li>
+<li>确认 Hugo 版本 ≥ 0.68.0 (兼容性问题)</li>
+</ol>
+<p>完成后，你的网站将会在 <code>/search</code> 路径下显示搜索界面，支持实时关键词检索。</p>
+
+    </div>
+  </article>
+
+    </main>
+    
+<footer class="footer">
+        <span>© 2025 Mitre <a href="http://www.beian.gov.cn/portal/registerSystemInfo">网站备案号 沪ICP备2024085168号-1</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

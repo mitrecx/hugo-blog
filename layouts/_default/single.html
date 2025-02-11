@@ -1,20 +1,22 @@
-
 {{ define "main" }}
-  <article class="post-content">
-    <!-- 左侧大纲 -->
-    <aside class="toc-sidebar">
-      <div class="toc">
-        {{ .TableOfContents }}
-      </div>
-    </aside>
-    
-    <!-- 正文内容 -->
-    <div class="post-main">
-      <!-- Optimized Hugo template code -->
-      <h1>{{ .Title | safeHTML }}</h1>
-      发布时间: {{ .Date.Format "2006-01-02" }}<br>
-      字数: {{ .WordCount }} 字<br>
-      {{ .Content }}
+<article class="post-content">
+  <!-- 左侧大纲 -->
+  <aside class="toc-sidebar">
+    <div class="toc">
+      {{ .TableOfContents }}
     </div>
-  </article>
+  </aside>
+
+  <!-- 正文内容 -->
+  <div class="post-main">
+    <!-- Optimized Hugo template code -->
+    <h1>{{ .Title | safeHTML }}</h1>
+    <!-- 添加好看的样式: 字体改小点, 添加浅灰色的背景 -->
+    <div class="publish-date">
+      发布时间: {{ .Date.Format "2006-01-02 15:04:05" }}<br>
+      <!-- 更新时间: {{ .Lastmod.Format "2006-01-02" }}<br> -->
+    </div>
+    {{ .Content }}
+  </div>
+</article>
 {{ end }}

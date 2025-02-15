@@ -17,9 +17,9 @@ tags: ["Python语言基础"]
 - pyenv：适合需要管理多个 Python 版本的用户。
 
 ### 1.2 IDE 选择 
-- PyCharm, JetBrains 开发, 完全免费, 支持 AI 加持
-- Visual Studio Code(VSCode), 微软开发, 完全免费, 支持 AI 加持
-- Trae, 字节开发, 完全免费, 天生 AI 加持
+- PyCharm: JetBrains 开发, PyCharm Professional 需要付费, 支持 AI 加持.
+- Visual Studio Code(VSCode): 微软开发, 完全免费, 支持 AI 加持.
+- Trae: 字节跳动开发, 完全免费, 天生 AI 加持.
 
 
 ### 1.3 虚拟环境管理

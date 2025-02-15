@@ -3,7 +3,7 @@ date: '2025-02-09T12:50:38+08:00'
 draft: false
 title: '基于Flask和火山引擎豆包大模型实现chatbot'
 categories:
-  - Flask
+  - 聊天机器人
 ---
 ## 1 效果预览
 实现效果图:

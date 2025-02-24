@@ -2,6 +2,7 @@ baseURL: http://blog.mitrecx.top/
 languageCode: zh-cn
 title: Mitre 的博客
 theme: ["PaperMod"]
+# theme: ["hugo-clarity"]
 params:
   category: true
   enableSearch: true
